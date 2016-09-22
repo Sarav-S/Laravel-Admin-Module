@@ -1,5 +1,5 @@
 {
-    "name": "sarav/modules",
+    "name": "sarav/admin-modules",
     "description": "A simple laravel package to manage admin modules",
     "license": "MIT",
     "autoload": {
