@@ -1,0 +1,23 @@
+<?php
+
+Route::group(['prefix' => config('admin.url')], function(){
+	Route::group(['middleware' => 'admin-auth'], function(){
+		Route::get('/', ['as' => 'admin', 'uses' => 'HomeController@index']);
+		Route::get('/home', ['as' => 'admin', 'uses' => 'HomeController@index']);
+		Route::get('logout', ['as' => 'admin.logout', 'uses' => 'AuthController@logout']);
+
+		Route::get('profile', ['as' => 'admin.profile', 'uses' => 'HomeController@profile']);
+		Route::post('profile', ['as' => 'admin.profile.post', 'uses' => 'HomeController@postProfile']);
+	});
+
+	Route::group(['middleware' => 'admin-guest'], function(){
+		// Authentication Routes...
+		Route::get('login', ['as' => 'admin.login', 'uses' => 'AuthController@showLoginForm']);
+		Route::post('login', ['as' => 'admin.login.post', 'uses' => 'AuthController@login']);
+
+		// Password Reset Routes...
+		Route::get('password/reset/{token?}', ['as' => 'admin.password.reset', 'uses' => 'PasswordController@showResetForm']);
+		Route::post('password/email', ['as' => 'admin.email', 'uses' => 'PasswordController@sendResetLinkEmail']);
+		Route::post('password/reset', ['as' => 'admin.password.post', 'uses' => 'PasswordController@reset']);
+	});
+});

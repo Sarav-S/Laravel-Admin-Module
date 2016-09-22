@@ -1,0 +1,26 @@
+@extends('admin.layouts.app')
+
+@section('title', 'Update DummySingularCaps')
+
+@section('breadcrumb')
+	{!! Breadcrumbs::render('DummyUpdateUrl') !!}
+@endsection
+
+@section('content')
+	<div class="box box-primary">
+		<div class="box-header with-border">
+			<h3 class="box-title">
+				Update Existing DummySingularCaps
+			</h3>
+		</div>
+		<div class="box-body">
+			{!! Form::model($record, ['url' => route('DummyUpdateUrl', $record->id), 'method' => 'PUT', 'class' => 'validate', 'files' => true] ) !!}
+				@include('DummyFormFilePath')
+			{!! Form::close() !!}
+		</div>
+	</div>
+@endsection
+
+@section('admin-js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
+@endsection

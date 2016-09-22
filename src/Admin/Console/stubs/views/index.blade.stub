@@ -1,0 +1,58 @@
+@extends('admin.layouts.app')
+
+@section('title', 'Manage DummyPluralCaps')
+
+@section('breadcrumb')
+	{!! Breadcrumbs::render('DummyListUrl') !!}
+@endsection
+
+@section('content')
+	<div class="box box-primary">
+		<div class="box-header with-border">
+          	<h3 class="box-title">
+          		Listing DummyPlural
+          	</h3>
+        </div>
+        <div class="box-body">
+	        <div class="mt-20 overflow-hidden">
+	        	<a href="{{ route('DummyCreateUrl') }}" class="btn btn-success pull-right">Add New</a>
+	        </div>
+			@if (count($records))
+        	<table class="table table-bordered table-hover data-table advance">
+        		<thead>
+        			<tr>
+        				<th>ID</th>
+        				<th>Action</th>
+        			</tr>
+        		</thead>
+        		<tbody>	
+            	@foreach($records as $record)
+            		<tr>
+            			<td>{{ $record->id }}</td>
+            			<td>
+            				<a class="btn btn-info btn-xs" href="{{ route('DummyEditUrl', $record->id) }}">Edit</a>
+            				{!! Form::open(['url' => route('DummyDeleteUrl', $record->id), 'method' => 'DELETE', 'class' => 'inline']) !!}
+            				<button type="submit" class="btn btn-danger btn-xs">
+            					<span>Delete</span>
+            				</button>
+            				{!! Form::close() !!}
+            			</td>
+            		</tr>
+            	@endforeach
+        		</tbody>
+        	</table>
+			@else
+				@include('admin.partials._nolist')
+			@endif
+        </div>
+	</div>
+@endsection
+
+@section('admin-css')
+<link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
+@endsection
+
+@section('admin-js')
+<script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+@endsection

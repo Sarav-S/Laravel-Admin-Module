@@ -1,0 +1,10 @@
+<?php
+
+Breadcrumbs::register('admin', function($breadcrumbs){
+	$breadcrumbs->push('Home', route('admin'));
+});
+
+Breadcrumbs::register('profile', function($breadcrumbs) {
+	$breadcrumbs->parent('admin');
+    $breadcrumbs->push('Profile', route('admin.profile'));
+});

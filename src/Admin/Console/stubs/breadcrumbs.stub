@@ -1,0 +1,16 @@
+<?php
+
+Breadcrumbs::register('DummyListUrl', function($breadcrumbs) {
+	$breadcrumbs->parent('admin');
+    $breadcrumbs->push('DummyPluralCaps', route('DummyListUrl'));
+});
+
+Breadcrumbs::register('DummyCreateUrl', function($breadcrumbs) {
+	$breadcrumbs->parent('DummyListUrl');
+    $breadcrumbs->push('Add DummySingularCaps', route('DummyCreateUrl'));
+});
+
+Breadcrumbs::register('DummyUpdateUrl', function($breadcrumbs) {
+	$breadcrumbs->parent('DummyListUrl');
+    $breadcrumbs->push('Update DummySingularCaps', route('DummyListUrl'));
+});

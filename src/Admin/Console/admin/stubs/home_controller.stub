@@ -1,0 +1,46 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests;
+use Illuminate\Http\Request;
+use DummyInterfaceNamespace;
+
+class HomeController extends Controller
+{
+    protected $repository;
+
+    public function __construct(AdminInterface $repository)
+    {
+        $this->repository = $repository;
+    }
+    
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('admin.home');
+    }
+
+    public function profile()
+    {
+    	return view('admin.profile');
+    }
+
+    public function postProfile(Request $request)
+    {
+    	$admin = auth()->guard('admin')->user();
+
+    	$this->validate($request, [
+    		'name'     => 'required|min:3',
+    		'email'    => 'required|email|unique:admins,id,'.$admin->id,
+    		'password' => 'sometimes|min:8'
+    	]);
+
+    	return $this->repository->save($request, $admin);
+    }
+}

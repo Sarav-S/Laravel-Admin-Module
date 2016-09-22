@@ -1,0 +1,60 @@
+<?php
+
+use DummyModelNamespace;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+
+class DummyTest extends TestCase
+{
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function testExample()
+    {
+    	$user = new DummyModel(array('name' => 'John'));
+		$this->be($user);
+    }
+
+    public function testDummyModelPage()
+    {
+    	$this->visit('listallurl')
+             ->see('Manage DummyPluralCaps');
+    }
+
+    public function testDummyModelForm()
+    {
+    	$this->visit('createurl')
+         	->press('Submit')
+         	->see('field is required.');
+    }
+
+    public function testDummyModelAdd()
+    {
+    	$this->visit('createurl')
+         	->type('Taylor', 'name')
+         	->press('Submit')
+         	->seePageIs('listallurl')
+         	->see('DummySingularCaps has been saved successfully');
+    }
+
+    public function testDummyModelEdit()
+    {
+    	$this->visit('listallurl')
+    		->see('Edit')
+    		->click('Edit')
+    		->see('Update Existing DummySingularCaps')
+         	->press('Submit')
+         	->see('DummySingularCaps has been saved successfully');
+    }
+
+    public function testDummyModelDelete()
+    {
+    	$this->visit('listallurl')
+    		->see('Delete')
+    		->press('Delete')
+    		->see('DummySingularCaps deleted successfully');
+    }
+}

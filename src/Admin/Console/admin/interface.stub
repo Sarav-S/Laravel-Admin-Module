@@ -1,0 +1,14 @@
+<?php
+
+namespace DummyNamespace;
+
+use Prettus\Repository\Contracts\RepositoryInterface;
+
+/**
+ * Interface App\Admin\Repository
+ * @package App\Admin\Repository
+ */
+interface AdminInterface extends RepositoryInterface
+{
+    //
+}

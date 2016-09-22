@@ -1,0 +1,55 @@
+<?php
+
+namespace DummyNamespace;
+
+use Prettus\Repository\Eloquent\BaseRepository;
+use Prettus\Repository\Criteria\RequestCriteria;
+use DummyInterfaceNamespace;
+use DummyModelNamespace;
+
+/**
+ * Class App\Admin\Model\Admin
+ * @package App\Admin\Repository
+ */
+class AdminRepository extends BaseRepository implements AdminInterface
+{
+    /**
+     * Specify Model class name
+     *
+     * @return string
+     */
+    public function model()
+    {
+        return Admin::class;
+    }
+
+    /**
+     * Boot up the repository, pushing criteria
+     */
+    public function boot()
+    {
+        $this->pushCriteria(app(RequestCriteria::class));
+    }
+
+    public function save($request, $record)
+    {
+        $record->name = $request->input('name');
+        $record->email = $request->input('email');
+
+        if ($request->has('password'))
+        {
+            $record->password = bcrypt($request->input('password'));
+        }
+
+        if ($record->save())
+        {
+            flash()->success('Profile has been saved successfully');
+        }
+        else
+        {
+            flash()->danger('Unable to save profile. Please try again!');
+        }
+
+        return back();
+    }
+}

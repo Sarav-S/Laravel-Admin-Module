@@ -1,0 +1,7 @@
+<div class="box-body">
+	@include('admin.partials._errors')
+	
+</div>
+<div class="box-footer">
+	{!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+</div>

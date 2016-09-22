@@ -1,0 +1,43 @@
+<?php
+
+namespace DummyNamespace;
+
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
+
+class DummyClassServiceProvider extends ServiceProvider
+{
+    /**
+     * Bootstrap the application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->registerBreadcrumbs();
+    }
+
+    /**
+     * Register the application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->app->bind('DummyInterfaceNamespace', 'DummyRepositoryNamespace');
+        $this->app->register('DummyRouteServiceProviderNamespace');
+
+        View::addLocation(realpath(__DIR__.'/../resources/'));
+    }
+
+    /**
+     * This method registers breadcrumbs
+     */
+    public function registerBreadcrumbs()
+    {
+        if (file_exists($file = realpath(__DIR__.'/../Http/breadcrumbs.php')))
+        {
+            require $file;
+        }
+    }
+}
