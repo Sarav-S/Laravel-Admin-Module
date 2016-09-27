@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="{{ asset('admin/css/skins/_all-skins.min.css') }}">
         <!-- iCheck -->
         <link rel="stylesheet" href="{{ asset('admin/plugins/iCheck/flat/blue.css') }}">
-        
+        @yield('admin-css')
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -129,6 +129,7 @@
         <script src="{{ asset('admin/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
         <!-- AdminLTE App -->
         <script src="{{ asset('admin/js/app.min.js') }}"></script>
+        @yield('admin-js')
         <script>
             jQuery(document).ready(function(){
                 var childrens = $('.main-sidebar .sidebar-menu ul');
@@ -139,6 +140,25 @@
                     {
                         $(childrens[i]).addClass('treeview-menu');
                     }
+                }
+
+                if ($('.data-table-advance').length) {
+                    $('.data-table-advance').DataTable({
+                        "paging":       false,
+                        "lengthChange": true,
+                        "searching":    true,
+                        "ordering":     true,
+                        "info":         true,
+                        "autoWidth":    false
+                    });
+                }
+
+                if ($('.datepicker').length)
+                {
+                    $('.datepicker').datepicker({
+                        autoclose: true,
+                        format : 'dd-mm-yyyy'
+                    });
                 }
             });
         </script>

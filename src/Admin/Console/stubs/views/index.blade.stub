@@ -18,7 +18,7 @@
 	        	<a href="{{ route('DummyCreateUrl') }}" class="btn btn-success pull-right">Add New</a>
 	        </div>
 			@if (count($records))
-        	<table class="table table-bordered table-hover data-table advance">
+        	<table class="table table-bordered table-hover data-table-advance">
         		<thead>
         			<tr>
         				<th>ID</th>
@@ -32,7 +32,7 @@
             			<td>
             				<a class="btn btn-info btn-xs" href="{{ route('DummyEditUrl', $record->id) }}">Edit</a>
             				{!! Form::open(['url' => route('DummyDeleteUrl', $record->id), 'method' => 'DELETE', 'class' => 'inline']) !!}
-            				<button type="submit" class="btn btn-danger btn-xs">
+            				<button type="submit" class="btn btn-danger delete btn-xs">
             					<span>Delete</span>
             				</button>
             				{!! Form::close() !!}
@@ -48,11 +48,37 @@
 	</div>
 @endsection
 
+
 @section('admin-css')
-<link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
+<link rel="stylesheet" href="{{ asset('admin/plugins/datatables/dataTables.bootstrap.css') }}">
+<link rel="stylesheet" href="{{ asset('admin/plugins/sweetalert/sweetalert.css') }}">
 @endsection
 
 @section('admin-js')
-<script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ asset('admin/plugins/sweetalert/sweetalert.min.js') }}"></script>
+<script>
+    $('.delete').click(function(event){
+        event.preventDefault();
+        var $that = $(this);
+        swal({
+            title: "Are you sure?",
+            text: "",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "Cancel",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        }, function(isConfirm){
+            if (isConfirm) {
+                $that.closest('form').submit();
+            } else {
+                swal("Cancelled", "Action prevented!", "error");   
+            }
+        });
+    });
+</script>
 @endsection
