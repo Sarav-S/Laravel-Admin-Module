@@ -41,6 +41,9 @@
             	@endforeach
         		</tbody>
         	</table>
+		<div class="paginate text-center">
+			{!! $records->links() !!}
+		</div>
 			@else
 				@include('admin.partials._nolist')
 			@endif
