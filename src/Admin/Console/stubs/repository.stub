@@ -52,7 +52,7 @@ class DummyClassRepository extends BaseRepository implements DummyInterface
         }
         else
         {
-            flash()->danger('Unable to save DummySingular. Please try again!');
+            flash()->error('Unable to save DummySingular. Please try again!');
         }
 
         return redirect(route('DummyListUrl'));
